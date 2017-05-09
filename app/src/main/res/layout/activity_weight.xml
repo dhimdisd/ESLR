@@ -13,23 +13,48 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Weight"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="64dp" />
+        android:layout_marginStart="85dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/changeWeightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHANGE WEIGHT"
-        tools:layout_editor_absoluteY="139dp"
-        tools:layout_editor_absoluteX="124dp" />
+        android:onClick="submitWeight"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="33dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/editText" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lbs"
-        tools:layout_editor_absoluteX="310dp"
-        tools:layout_editor_absoluteY="82dp" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="82dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/editText" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/changeWeightButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
