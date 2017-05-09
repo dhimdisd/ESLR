@@ -12,11 +12,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Weight"
         android:layout_marginStart="85dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView"
         tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
+        android:digits="0123456789"
+        android:maxLength="3"
+        android:gravity="right"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
@@ -48,13 +50,15 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:gravity="center"
+        android:text="Test center aroundd kjdskjdksjfks"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
         android:layout_marginStart="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/changeWeightButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="-13dp" />
 
 </android.support.constraint.ConstraintLayout>

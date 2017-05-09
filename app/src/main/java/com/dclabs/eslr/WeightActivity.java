@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class WeightActivity extends AppCompatActivity {
 
-    private final Map<Double, List<Double>> cache = new HashMap<Double, List<Double>>();
-    private final double [] weights = new double[]{45,35,25,10,5,2.5};  //plates of weights that are used to calculate 
+    private static final Map<Double, List<Double>> CACHE = new HashMap<Double, List<Double>>();
+    private static final double [] WEIGHTS = new double[]{45,35,25,10,5,2.5};  //plates of weights that are used to calculate
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +27,12 @@ public class WeightActivity extends AppCompatActivity {
     public void submitWeight(View view) {
         TextView textView = (TextView) this.findViewById(R.id.textView2);
         EditText editText = (EditText) this.findViewById(R.id.editText);
-        String weightInput = editText.getText().toString();
+        String targetWeight = editText.getText().toString();
 
         
-        if (isInteger(weightInput,10)) {
-            double weightValue = Integer.parseInt(weightInput);
-            List<Double> weights = getWeights((weightValue)/2);  //divide by two since we are displaying plates on one side
+        if (isInteger(targetWeight,10)) {
+            double targetValue = Integer.parseInt(targetWeight);
+            List<Double> weights = getWeights((targetValue)/2);  //divide by two since we are displaying plates on one side
             if(weights.size() ==  0) {
                 textView.setText("Can't match input value with given weights");
             } else {
@@ -45,15 +45,15 @@ public class WeightActivity extends AppCompatActivity {
     }
 
 
-    /** Algorithm used for calculating which weights to use to get target input.  Returns list of weights */
+    /** Algorithm used for calculating which weights to use to add up to target input.  Returns list of weights */
 
-    public List<Double> getWeights(double goalWeight) {
+    public List<Double> getWeights(double targetWeight) {
 
-        if (goalWeight == 0) {
+        if (targetWeight == 0) {
             return new ArrayList<Double>();
         }
-        if (cache.containsKey(goalWeight) ) {
-            return cache.get(goalWeight);
+        if (CACHE.containsKey(targetWeight) ) {
+            return CACHE.get(targetWeight);
         }
 
         List<Double> min = new ArrayList<Double>();
@@ -61,8 +61,8 @@ public class WeightActivity extends AppCompatActivity {
         double newAmount = 0;
 
 
-        for (double weight: weights) {
-            newAmount = goalWeight - weight;
+        for (double weight: WEIGHTS) {
+            newAmount = targetWeight - weight;
 
             if(newAmount >= 0){
                 newMin = getWeights(newAmount);
@@ -77,7 +77,7 @@ public class WeightActivity extends AppCompatActivity {
             }
         }
 
-        cache.put(goalWeight, min);
+        CACHE.put(targetWeight, min);
         return min;
     }
 
