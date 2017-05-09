@@ -1,26 +1,20 @@
 package com.dclabs.eslr;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.solver.ArrayLinkedVariables;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class WeightActivity extends AppCompatActivity {
 
-    private final Map<Double, ArrayList<Double>> cache = new HashMap<Double, ArrayList<Double>>();
-    private final double [] weights = new double[]{45,35,25,10,5,2.5};
+    private final Map<Double, List<Double>> cache = new HashMap<Double, List<Double>>();
+    private final double [] weights = new double[]{45,35,25,10,5,2.5};  //plates of weights that are used to calculate 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,42 +23,45 @@ public class WeightActivity extends AppCompatActivity {
     }
 
 
-
+    /**   Button action event used for calculating plates based of weight input */
     public void submitWeight(View view) {
         TextView textView = (TextView) this.findViewById(R.id.textView2);
         EditText editText = (EditText) this.findViewById(R.id.editText);
-        String text = editText.getText().toString();
+        String weightInput = editText.getText().toString();
 
-        if (isInteger(text,10)) {
-            double weightValue = Integer.parseInt(text);
-            ArrayList<Double> weights = getWeights((weightValue-45)/2);  //take off bar value and do for one side only
+        
+        if (isInteger(weightInput,10)) {
+            double weightValue = Integer.parseInt(weightInput);
+            List<Double> weights = getWeights((weightValue)/2);  //divide by two since we are displaying plates on one side
             if(weights.size() ==  0) {
                 textView.setText("Can't match input value with given weights");
             } else {
                 textView.setText(Arrays.toString(weights.toArray()));
             }
 
-
         } else {
             textView.setText("Invalid Input");
         }
     }
 
-    public ArrayList<Double> getWeights(double goalWeight) {
 
-        if(goalWeight == 0) {
+    /** Algorithm used for calculating which weights to use to get target input.  Returns list of weights */
+
+    public List<Double> getWeights(double goalWeight) {
+
+        if (goalWeight == 0) {
             return new ArrayList<Double>();
         }
-        if(cache.containsKey(goalWeight) ) {
+        if (cache.containsKey(goalWeight) ) {
             return cache.get(goalWeight);
         }
 
-        ArrayList<Double> min = new ArrayList<Double>();
-        ArrayList<Double> newMin = null;
+        List<Double> min = new ArrayList<Double>();
+        List<Double> newMin = null;
         double newAmount = 0;
 
 
-        for(double weight: weights) {
+        for (double weight: weights) {
             newAmount = goalWeight - weight;
 
             if(newAmount >= 0){
@@ -81,7 +78,7 @@ public class WeightActivity extends AppCompatActivity {
         }
 
         cache.put(goalWeight, min);
-        return (ArrayList<Double>)min.clone();
+        return min;
     }
 
 
@@ -96,7 +93,5 @@ public class WeightActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
 
 }
